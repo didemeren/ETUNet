@@ -1,4 +1,20 @@
-<?php include("../GLOBALS"); ?>
+<?php include("../GLOBALS");
+include '../connection.php';
+session_start();
+if(isset ($_SESSION["id"]) and $_SESSION["username"] ) {
+	$id=$_SESSION["id"];
+	$name=$_SESSION["username"];
+	$st->prepare("select admin_id,admin_username from admin where admin_id=? and admin_username=?");
+	$st->bind_param('is',$id,$name);
+	$st->execute();
+	$st->bind_result($id,$name);
+	if(!$st->fetch()){
+		header("location:login.php");		
+    }
+}else {
+	header("location:login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -78,8 +94,29 @@
                 <li><a href="#">Tümünü Görüntüle</a></li>
               </ul>
             </li>
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dönem İşlemleri <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="newTerm.php">Yeni Dönem Ekle</a></li>
+                <li><a href="editTerm.php">Dönem Güncelle</a></li>
+                <li><a href="#">Tümünü Görüntüle</a></li>
+              </ul>
+            </li>
           </ul>
-          <p class="pull-right">Logged in as <a href="#">username</a></p>
+          
+          <div class="pull-right" style="margin-right: 45px;">
+	          <ul class="nav">
+		          <li class="dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $name;?><b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><a href="#">Hesap İşlemleri</a></li>
+		                <li class="divider"></li>
+                		<li><a href="logout.php">Çıkış Yap</a></li>
+		              </ul>
+		            </li>
+	          </ul>
+         </div> 
         </div>
       </div>
     </div>

@@ -1,4 +1,18 @@
-<?php include("../GLOBALS"); ?>
+<?php include("../GLOBALS");
+include '../connection.php';
+session_start();
+if(isset ($_SESSION["id"]) and $_SESSION["username"] ) {
+	$id=$_SESSION["id"];
+	$name=$_SESSION["username"];
+	$st->prepare("select admin_id,admin_username from admin where admin_id=? and admin_username=?");
+	$st->bind_param('is',$id,$name);
+	$st->execute();
+	$st->bind_result($id,$name);
+	if($st->fetch()){
+		header("location:index.php");		
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,48 +39,36 @@
   <body>
   
   <div class="container">
-	<form>
-	<fieldset>
-	<legend><?php echo $sitename; ?> Yönetim Paneli Girişi</legend>
-	<div class="clearfix">
-            <div class="input">
-              <input class="xlarge" id="xlInput" name="username" size="30" type="text" placeholder='Kullanıcı Adı' />
-            </div>
-          </div><!-- /clearfix -->
-		  
-		  <div class="clearfix">
-            <div class="input">
-              <input class="xlarge" id="xlInput" name="password" size="30" type="password" placeholder='Şifre' />
-            </div>
-          </div><!-- /clearfix -->
-		  
-		  <div class="actions">
-            <input type="submit" class="btn primary large" value="Gönder">
-          </div>
-		  
-		  
+  <div class="formform">
+		<fieldset>
+		<legend><?php echo $sitename; ?> Yönetim Paneli Girişi</legend>
+			 <div id="errorMessage" >
+				<div class='place-for-alert'><p> &nbsp;</p></div>
+				
+				</div>	
+			<div class="clearfix">
+	            <div class="input">
+	              <input class="xlarge" name="username" id="username" size="30" type="text" placeholder='Kullanıcı Adı' />
+	            </div>
+		    </div><!-- /clearfix -->
+			  
+			<div class="clearfix">
+	            <div class="input">
+	              <input class="xlarge" name="password" id="password" size="30" type="password" placeholder='Şifre' />
+	         	</div>
+	        </div><!-- /clearfix -->
+			  
+			<div class="actions">
+				<button class="btn primary large" onClick="registerAdmin()">Gönder</button>
+			</div> 
 		  </fieldset>
-		  </form>
-	
-	
-  
-  
-  
-      <footer>
+		 </div>
+    <footer>
         <p>&copy; <?php echo $sitename; ?> 2012</p>
-      </footer>
+    </footer>
 
+	<?php 
+	include 'scripts.php';?>
   </div>
-  
-  <?php include('scripts.php'); 
-
-?>
-
-	
-	
-	
-	
-	
-	
   </body>
 </html>

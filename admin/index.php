@@ -1,8 +1,4 @@
 <?php include('header.php'); ?>
-
-    
-      
-	  
         <!-- Example row of columns -->
         <div class="row">
           <div class="span5">
