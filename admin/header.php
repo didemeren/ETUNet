@@ -100,7 +100,7 @@ if(isset ($_SESSION["id"]) and $_SESSION["username"] ) {
               <ul class="dropdown-menu">
                 <li><a href="newTerm.php">Yeni Dönem Ekle</a></li>
                 <li><a href="editTerm.php">Dönem Güncelle</a></li>
-                <li><a href="#">Tümünü Görüntüle</a></li>
+                <li><a href="allTerm.php">Tümünü Görüntüle</a></li>
               </ul>
             </li>
           </ul>

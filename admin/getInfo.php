@@ -106,12 +106,12 @@
 		$bolum=substr($bolum,$valueend+1);
 		$textend=strpos($bolum,'</option>');
 		$text=substr($bolum,0,$textend);	
-		$st->prepare("insert into class (class_name,class_value)values (?,?)");
+		$st->prepare("insert into classroom (classroom_name,classroom_value)values (?,?)");
 		$st->bind_param('ss',$text,$value);
 		$st->execute();			
 		$bolum=substr($bolum,$textend+9);
 	}
-	$st->prepare("select * from class order by class_name");
+	$st->prepare("select * from classroom order by classroom_name");
 	$st->execute();
 	$st->bind_result($value,$name);
 	echo("<select name = dd_deslik>");

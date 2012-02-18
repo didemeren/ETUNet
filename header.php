@@ -123,15 +123,8 @@
       </div>
     </div>
 	<?php  include('alerts.php'); ?>
-	
-	
-	
     <div class="container">
-
-		
-	
-      <div class="content">
-	  
+      <div class="content">	  
 	  <div class="page-header">
           <h1><?php echo $sitename; ?>&nbsp;<small><?php echo $slogan; ?></small></h1>
         </div>
