@@ -1,4 +1,4 @@
-<?php include'GLOBALS'; ?>
+<?php include'GLOBALS.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

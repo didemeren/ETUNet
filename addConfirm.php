@@ -38,14 +38,15 @@
 				$st->prepare("insert into user (st_id,st_activate,st_name,st_surname) values (?,?,?,?)");
 				$st->bind_param('isss',$userid,$activate,$name,$surname);
 				$st->execute();
-				/**
-				$mail_to="st0".$userid."@etu.edu.tr";
-				$mail_from="info@etunet.net";
+				/*
+				//$mail_to="st0".$userid."@etu.edu.tr";
+				$mail_to="didemeren.id@gmail.com";
+				$mail_from="no-reply@etunet.net";
 				$mail_sub="Üyelik Aktivasyon";
 				$mail_mesg="Üyeliğinizi aktif etmek için aşağıdaki linke tıklayınız.
 				
 				
-				www.etunet.net/activate.php?act=".$activate;
+				www.etunet.net/activation.php?act=".$activate;
 				mail($mail_to,$mail_sub,$mail_mesg,$mail_from);
 				*/
 				echo"<div class='alert-message info' id='registerStep1'><p>ETUMail hesabınıza gelen maildeki doğrulama adresine gitmeniz gerekmektedir</p></div>";

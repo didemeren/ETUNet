@@ -85,15 +85,30 @@ function checkPassword2(){
 }
 
 function checkMail(){
-	var mail=document.getElementById("mail").value;
+	var mail=document.getElementById("mailInput").value;
 	var help=document.getElementById("mail-help");
 	var fix=document.getElementById("mailfix");
-	patt=/^(\w|\x2E){6,30}@\w+\x2E\w+$/
+	patt=/^(\w|\x2E){6,30}@(\w+\x2E\w+|\w+\x2E\w+\x2E\w+)$/
 	if(patt.test(mail)) {
 		fix.className='clearfix success';
 		help.innerHTML="&laquo;"
 	}else {
 		fix.className='clearfix error';
 		help.innerHTML="E-posta geçerli değil"
+	}
+}
+
+function saveStudent() {
+	var studentIDInput = document.getElementById("studentIDInput").value;
+	var nameInput = document.getElementById("nameInput").value;
+	var surnameInput = document.getElementById("surnameInput").value;
+	var mailInput = document.getElementById("mailInput").value;
+	var mailfix=document.getElementById("mailfix").className;
+	var passfix=document.getElementById("passfix").className;
+	var passagainfix=document.getElementById("pass-againfix");
+	if(passagainfix!='clearfix error' && passagainfix!='clearfix error' && passagainfix!='clearfix error') {
+		document.submit();
+	}else {
+		document.getElementById("errorMessage").innerHTML="<div class='alert-message error'><p>Lütfen geçerli bir öğrenci numarası giriniz</p></div>";
 	}
 }

@@ -11,7 +11,6 @@
 		$st->execute();
 		$st->bind_result($userId,$name,$surname);
 		if($st->fetch()){
-			echo "<script language=javascript>document.getElementById('studentID').value=st0$userId</script>";
 			include('registerForm.php');
 			include('footer.php');
 		}else {
