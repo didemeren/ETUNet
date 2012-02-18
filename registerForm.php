@@ -5,7 +5,7 @@
 		  <div class="clearfix">
             <label for="studentID">Öğrenci Numarası</label>
             <div class="input">
-              <input class="xlarge disabled" id="studentID" name="studentID" size="10" type="text" disabled />
+              <input class="xlarge disabled" id="studentformID" name="studentformID" size="10" type="text" disabled value="0<?php echo $userId?>"/>
             </div>
           </div><!-- /clearfix -->
           <div class="clearfix">
