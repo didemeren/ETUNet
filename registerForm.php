@@ -1,5 +1,5 @@
 <?php include 'scripts.php';?>
-	<form method="post" action="doLogin.php?reg=reg">
+	<form id="registerForm" name="registerForm" method="post" action="doLogin.php?reg=reg">
         <fieldset>
         <div id="errorMessage">
 			<div class='place-for-alert'><p><center>Kayıt Formu</center></p></div>
@@ -7,20 +7,53 @@
 		  <div class="clearfix">
             <label for="studentID">Öğrenci Numarası</label>
             <div class="input">
-              <input class="xlarge disabled" id="studentIDInput" name="studentIDInput" size="10" type="text" disabled value="0<?php echo $userId?>"/>
+              <input readonly="true" class="xlarge disabled" id="studentIDInput" name="studentIDInput" size="10" type="text" value="0<?php echo $userId?>"/>
             </div>
           </div><!-- /clearfix -->
           <div class="clearfix">
             <label for="isim">İsim</label>
             <div class="input">
-              <input class="xlarge" id="nameInput" name="nameInput" size="30" type="text" value="<?php echo $name?>" disabled/>
+              <input readonly="true" class="xlarge" id="nameInput" name="nameInput" size="30" type="text" value="<?php echo $name?>" />
             </div>
           </div><!-- /clearfix -->
 		  
 		  <div class="clearfix">
             <label for="isim">Soyisim</label>
             <div class="input">
-              <input class="xlarge" id="surnameInput" name="surnameInput" size="30" type="text" value="<?php echo $surname?>" disabled/>
+              <input readonly="true" class="xlarge" id="surnameInput" name="surnameInput" size="30" type="text" value="<?php echo $surname?>" />
+            </div>
+          </div><!-- /clearfix -->
+          
+          <div class="clearfix">
+            <label id="optionsRadio">Kullanıcı Adı</label>
+            <div class="input">
+              <ul class="inputs-list">
+                <li>
+                  <label>
+                    <input type="radio" checked name="optionsUName" value="<?php echo $name." ".$surname?>" selected/>
+                    <span><?php echo $name." ".$surname?></span>
+                  </label>
+                </li>
+                <?php 
+                $index=strpos($name,' ');
+                if($index>0) {
+                	$name1=trim(substr($name,0,$index));
+					$name2=trim(substr($name,$index));
+                ?>
+                <li>
+                  <label>
+                    <input type="radio" name="optionsUName" value="<?php echo $name1." ".$surname?>" />
+                    <span><?php echo $name1." ".$surname?></span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="optionsUName" value="<?php echo $name2." ".$surname?>" />
+                    <span><?php echo $name2." ".$surname?></span>
+                  </label>
+                </li>
+                <?php }?>
+              </ul>
             </div>
           </div><!-- /clearfix -->
 		  
@@ -54,7 +87,7 @@
           <div class="clearfix">
             <label for="class">Sınıf</label>
             <div class="input">
-              <select name="class" id="classInput">
+              <select id="classInput" name="classInput">
                 <?php 
                 $st->prepare("select * from class order by class_value");
 				$st->execute();
@@ -70,7 +103,7 @@
 		  <div class="clearfix">
             <label for="topic">Bölüm</label>
             <div class="input">
-              <select name="topic" id="departmentInput">
+              <select id="departmentInput" name="departmentInput">
                 <?php 
                 $st->prepare("select * from department order by dep_name");
 				$st->execute();

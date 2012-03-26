@@ -1,4 +1,7 @@
-<?php include'GLOBALS.php'; ?>
+<?php 
+session_start();
+include'GLOBALS.php'; 	
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -82,9 +85,16 @@
         <div class="container-fluid">
           <a class="brand" href="index.php"><?php echo $sitename; ?></a>
           <ul class="nav">
-            <li><a href="index.php">Anasayfa</a></li>
             <li><a href="#about">Tartışma Alanı</a></li>
-            <li><a href="#calendar">Takvim</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Takvim<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Vize Takvimi</a></li>
+                <li><a href="#">Final Takvimi</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Genel Takvim</a></li>
+              </ul>
+            </li>
 			<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profil <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -95,19 +105,29 @@
                 <li><a href="#">Profil Görüntüle</a></li>
               </ul>
             </li>
+          <li><a href="syllabus.php">Ders Programı</a></li>
           </ul>
 		  
 		  <?php
-		   
-		   if (isset($_SESSION['username'])) {
-
-					echo "<p class='navbar-text pull-right'><a href='#'>{$_SESSION['username']}</a> olarak giriş yapıldı</p>";
-
+		   if (isset($_SESSION['username']) && isset($_SESSION['userId'])) {
+		  ?>
+			<div class="pull-right" style="margin-right: 45px;">
+	          <ul class="nav">
+		          <li class="dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['username']?><b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><a href="#">Hesap İşlemleri</a></li>
+		                <li class="divider"></li>
+                		<li><a href="logout.php">Çıkış Yap</a></li>
+		              </ul>
+		            </li>
+	          </ul>
+         </div>
+		<?php 
 			} else {
-
-					echo "<form action='login' class='pull-right'>\n";
-					echo "<input class='input-small' type='text' placeholder='Kullanıcı Adı'>\n";
-					echo "<input class='input-small' type='password' placeholder='Şifre'>\n";
+					echo "<form action='doLogin.php' class='pull-right' method='post'>\n";
+					echo "<input class='input-small' type='text' name='studentIdL' placeholder='Öğrenci No'>\n";
+					echo "<input class='input-small' type='password' name='passwordL' placeholder='Şifre'>\n";
 					echo "<button class='btn' type='submit'>Giriş</button>\n";
 					echo "<a class='btn primary' data-toggle='modal' href='#registerModal'>Kayıt Ol</a>\n";
 					echo "</form>";

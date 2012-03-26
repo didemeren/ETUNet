@@ -21,7 +21,7 @@
 	
 	
 	
-	/**	
+	
 	$ders='dd_ders';
 	$start=strpos($homepage,$ders);
 	$bolum=substr($homepage, $start);
@@ -32,16 +32,16 @@
 		$valuestart=strpos($bolum,'value=');
 		$bolum=substr($bolum,$valuestart+6);
 		$valueend=strpos($bolum,'>');
-		$value=substr($bolum,0,$valueend);		
+		$value=trim(substr($bolum,0,$valueend));		
 		
 		$bolum=substr($bolum,$valueend+1);
 		$textend=strpos($bolum,'</option>');
-		$text=substr($bolum,0,$textend);
-		$id=mb_substr($text,0,8,'UTF-8');
-		$name=mb_substr($text,8,strlen($text),'UTF-8');	
+		$text=trim(substr($bolum,0,$textend));
+		$id=trim(mb_substr($text,0,8,'UTF-8'));
+		$name=mb_substr($text,8,mb_strlen($text,'UTF-8'),'UTF-8');	
 		
 		$st->prepare("insert into lecture (lecture_id,lecture_name,lecture_value)values (?,?,?)");
-		$st->bind_param('sss',$id,$text,$value);
+		$st->bind_param('ssi',$id,$name,$value);
 		$st->execute();	
 		$bolum=substr($bolum,$textend+9);
 	}	
@@ -55,7 +55,7 @@
 	echo("</select><br/>");
 	
 		
-		
+		/**
 		
 		
 	//-------------------------hoca	
@@ -69,12 +69,12 @@
 		$valuestart=strpos($bolum,'value=');
 		$bolum=substr($bolum,$valuestart+6);
 		$valueend=strpos($bolum,'>');
-		$value=substr($bolum,0,$valueend);	
+		$value=trim(substr($bolum,0,$valueend));	
 		$bolum=substr($bolum,$valueend+1);
 		$textend=strpos($bolum,'</option>');
-		$text=substr($bolum,0,$textend);		
+		$text=trim(substr($bolum,0,$textend));		
 		$st->prepare("insert into lecturer (lecturer_name,lecturer_value)values (?,?)");
-		$st->bind_param('ss',$text,$value);
+		$st->bind_param('si',$text,$value);
 		$st->execute();			
 		$bolum=substr($bolum,$textend+9);
 	}	
@@ -102,12 +102,12 @@
 		$valuestart=strpos($bolum,'value=');
 		$bolum=substr($bolum,$valuestart+6);
 		$valueend=strpos($bolum,'>');
-		$value=substr($bolum,0,$valueend);
+		$value=trim(substr($bolum,0,$valueend));
 		$bolum=substr($bolum,$valueend+1);
 		$textend=strpos($bolum,'</option>');
-		$text=substr($bolum,0,$textend);	
+		$text=trim(substr($bolum,0,$textend));	
 		$st->prepare("insert into classroom (classroom_name,classroom_value)values (?,?)");
-		$st->bind_param('ss',$text,$value);
+		$st->bind_param('si',$text,$value);
 		$st->execute();			
 		$bolum=substr($bolum,$textend+9);
 	}
@@ -135,12 +135,12 @@
 		$valuestart=strpos($bolum,'value=');
 		$bolum=substr($bolum,$valuestart+6);
 		$valueend=strpos($bolum,'>');
-		$value=substr($bolum,0,$valueend);
+		$value=trim(substr($bolum,0,$valueend));
 		$bolum=substr($bolum,$valueend+1);
 		$textend=strpos($bolum,'</option>');
-		$text=substr($bolum,0,$textend);	
+		$text=trim(substr($bolum,0,$textend));	
 		$st->prepare("insert into department (dep_name,dep_value)values (?,?)");
-		$st->bind_param('ss',$text,$value);
+		$st->bind_param('si',$text,$value);
 		$st->execute();			
 		$bolum=substr($bolum,$textend+9);
 	}
@@ -183,8 +183,8 @@
 			$text=substr($returned,0,$valueend);
 			$text=trim($text);
 			$sonuc=new Lec_lec();
-			$sonuc->lecture=$value;
-			$sonuc->lecturer=$text;
+			$sonuc->lecture=trim($value);
+			$sonuc->lecturer=$trim($text);
 			$sonuc->sube=$i;
 			$lecture_lecturer[$arraycount]=$sonuc;
 			$bolum=substr($returned,$valueend+4);
@@ -194,14 +194,14 @@
 	for($i=0;$i<count($lecture_lecturer);$i++) {
 		$lecturer=$lecture_lecturer[$i]->lecturer;
 		$st->prepare("select lecturer_value from lecturer where lecturer_name=?");
-		$st->bind_param('s',$lecturer);
+		$st->bind_param('i',$lecturer);
 		$st->execute();
 		$st->bind_result($v);
 		if($st->fetch()) {
 		$lecture_lecturer[$i]->lecturer=$v;
 		}
 		$st->prepare("insert into lecture_lecturer (lecture_value,lecturer_value,sube)values (?,?,?)");
-		$st->bind_param('sss',$lecture_lecturer[$i]->lecture,$lecture_lecturer[$i]->lecturer,$lecture_lecturer[$i]->sube);
+		$st->bind_param('iii',$lecture_lecturer[$i]->lecture,$lecture_lecturer[$i]->lecturer,$lecture_lecturer[$i]->sube);
 		$st->execute();	
 	}
 */

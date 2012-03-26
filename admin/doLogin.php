@@ -1,24 +1,22 @@
 <?php
-	include '../connection.php'; 
+	include 'connection.php'; 
 	session_start();
-	if(isset($_GET["username"]) and isset($_GET["password"])){
-		$username=$_GET["username"];
+	if(isset($_GET["email"]) and isset($_GET["password"])){
+		$email=$_GET["email"];
 		$pass=$_GET["password"];
-		//$pass_control=sha1($username."didemonur".$pass);
-		$pass_control=$pass;
-		$st->prepare("select admin_id from admin where admin_username=? and pass_control=?");
-		$st->bind_param('ss',$username,$pass_control);
+		$pass_control=sha1($passInput."didem-erdem-cihan".$mailInput);
+		$st->prepare("select id from users where email=? and password=?");
+		$st->bind_param('ss',$email,$pass_control);
 		$st->execute();
 		$st->bind_result($id);
 		if($st->fetch()){
-			$_SESSION["username"]=$username;
 			$_SESSION["id"]= $id;
 			echo("ok");
 		}
 		else{
-			echo"<div class='alert-message error' id='registerStep1'><p>Girilen bilgiler yanlış</p></div>";
+			echo "Girilen bilgiler yanlış";
 		}
 	} else {
-		header("location:login.php");
+		header("location:../login.php");
 	}
 ?>

@@ -112,3 +112,51 @@ function saveStudent() {
 		document.getElementById("errorMessage").innerHTML="<div class='alert-message error'><p>Lütfen geçerli bir öğrenci numarası giriniz</p></div>";
 	}
 }
+
+function getProgramme()
+{   
+    var xmlhttp;
+    var number = document.getElementById("studentIDsl").value;
+    if(number=="") {
+    	document.getElementById("errorMessage").innerHTML="<div class='alert-message error'><p>Lütfen geçerli bir öğrenci numarası giriniz</p></div>";
+  	  return;
+    } else {
+	    if (window.XMLHttpRequest)
+	    {// code for IE7+, Firefox, Chrome, Opera, Safari
+	        xmlhttp=new XMLHttpRequest();
+	    }
+	    else
+	    {// code for IE6, IE5
+	        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    xmlhttp.onreadystatechange=function()
+	    {
+	        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	        {
+	        	document.getElementById("programTable").innerHTML=xmlhttp.responseText;
+	        }
+	    }
+	    xmlhttp.open("GET","getStCourses.php?ogrenci="+number,true);
+	    xmlhttp.send();
+    }
+}
+function getMyProgramme(number)
+{
+	if (window.XMLHttpRequest)
+	    {// code for IE7+, Firefox, Chrome, Opera, Safari
+	        xmlhttp=new XMLHttpRequest();
+	    }
+	    else
+	    {// code for IE6, IE5
+	        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    xmlhttp.onreadystatechange=function()
+	    {
+	        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	        {
+	        	document.getElementById("programTable").innerHTML=xmlhttp.responseText;
+	        }
+	    }
+	    xmlhttp.open("GET","getStCourses.php?ogrenci="+number,true);
+	    xmlhttp.send();
+}

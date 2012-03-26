@@ -1,4 +1,4 @@
-<?php include("../GLOBALS");
+<?php include("../GLOBALS.php");
 include '../connection.php';
 session_start();
 if(isset ($_SESSION["id"]) and $_SESSION["username"] ) {

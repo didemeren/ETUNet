@@ -1,4 +1,4 @@
-<?php include("../GLOBALS");
+<?php include("../GLOBALS.php");
 include '../connection.php';
 session_start();
 if(isset ($_SESSION["id"]) and $_SESSION["username"] ) {
@@ -101,6 +101,14 @@ if(isset ($_SESSION["id"]) and $_SESSION["username"] ) {
                 <li><a href="newTerm.php">Yeni Dönem Ekle</a></li>
                 <li><a href="editTerm.php">Dönem Güncelle</a></li>
                 <li><a href="allTerm.php">Tümünü Görüntüle</a></li>
+              </ul>
+            </li>
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sınav Takvimi İşlemleri <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="newTerm.php">Vize Takvimi Ekle</a></li>
+                <li><a href="editTerm.php">Final Takvimi Ekle</a></li>
               </ul>
             </li>
           </ul>
